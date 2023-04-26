@@ -1,5 +1,3 @@
-echo $(ls /data) 
-echo $(ls /data/repo) 
-cp -r /data/repo/* /app
+cp -r /data/repo/Tests/IntegrationTests* /app
 echo $(ls  /app)
-python -m pytest /app/tests/integrationtests
+python -m pytest /app
