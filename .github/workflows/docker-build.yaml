@@ -1,0 +1,24 @@
+name: Build & Push Docker Image 
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v2.1.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build & Push Docker image to registry
+      run: |
+       docker build . --tag ghcr.io/${{ github.actor }}/pytestexecutor:latest
+       docker push ghcr.io/${{ github.actor }}/pytestexecutor:latest
